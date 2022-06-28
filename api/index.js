@@ -5,18 +5,22 @@ import mongoose from "mongoose";
 import authRoute from "./route/auth.js";
 import usersRoute from "./route/users.js";
 import vehiclesRoute from "./route/vehicles.js";
-import carsRoute from "./route/cars.js";
+import rentalsRoute from "./route/rentals.js";
 
+// init express app
 const app = express();
+// init json usage
 app.use(express.json());
+// init .env
 dotenv.config();
 
 //initial connection to mongoDB
-const connect = async () => {
+const connect = async (req, res) => {
   try {
     await mongoose.connect(process.env.MONGO);
     console.log("Connected to Database.");
   } catch (error) {
+    console.log("Unable to Connect Database.");
     throw error;
   }
 };
@@ -44,8 +48,22 @@ app.use("/api/auth", authRoute);
 // users middleware
 app.use("/api/users", usersRoute);
 
+// rentals middleware
+app.use("/api/rentals", rentalsRoute);
+
 // vehicles middleware
 app.use("/api/vehicles", vehiclesRoute);
 
-// cars middleware
-app.use("/api/cars", carsRoute);
+//handle erorr middleware
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong";
+
+  // returning error detail
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+});

@@ -3,7 +3,7 @@ import Vehicle from "../models/Vehicle.js";
 
 const router = express.Router();
 
-//vehicles
+//vehicle index link
 router.get("/", (req, res) => {
   res.send("Hello, this is vehicles endpoint.");
 });
