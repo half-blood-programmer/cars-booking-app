@@ -6,6 +6,7 @@ import authRoute from "./route/auth.js";
 import usersRoute from "./route/users.js";
 import vehiclesRoute from "./route/vehicles.js";
 import rentalsRoute from "./route/rentals.js";
+import cookieParser from "cookie-parser";
 
 // init express app
 const app = express();
@@ -13,6 +14,8 @@ const app = express();
 app.use(express.json());
 // init .env
 dotenv.config();
+//cookie
+app.use(cookieParser());
 
 //initial connection to mongoDB
 const connect = async (req, res) => {
