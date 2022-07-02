@@ -13,7 +13,7 @@ const rentalSchema = new Schema(
     title: { type: String, required: true },
     desc: { type: String, required: true },
     rating: { type: Number, min: 0, max: 5 },
-    cars: { type: [String] },
+    vehicles: { type: [String] },
     cheapestPrice: { type: Number, required: true },
     featured: { type: Boolean, default: false },
   },

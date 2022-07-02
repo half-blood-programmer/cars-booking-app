@@ -31,7 +31,9 @@ export const verifyAdmin = (req, res, next) => {
     if (req.getUserData.username === "admanjunios") {
       next();
     } else {
-      return next(createError(401, "You're not authentichated"));
+      return next(
+        createError(401, "You're not authentichated to do this action!")
+      );
     }
   });
 };

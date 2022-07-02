@@ -1,31 +1,38 @@
 import express from "express";
-import Vehicle from "../models/Vehicle.js";
+import {
+  createVehicle,
+  deleteVehicle,
+  getAllVehicle,
+  getVehicle,
+  updateVehicle,
+} from "../controllers/vehicleController.js";
+import { createError } from "../utilities/error.js";
+import { verifyAdmin, verifyUser } from "../utilities/verifyToken.js";
 
 const router = express.Router();
 
-//vehicle index link
-router.get("/", (req, res) => {
-  res.send("Hello, this is vehicles endpoint.");
-});
-
-//create a vehicle
-router.post("/create", async (req, res) => {
-  const newVehicle = new Vehicle(req.body);
-
+//Vehicle index link
+router.get("/", (req, res, next) => {
   try {
-    const savedVehicle = await newVehicle.save();
-    res.status(200).json(savedVehicle);
+    res.send("Hello, this is Vehicles endpoint.");
   } catch (err) {
-    res.status(500).json(err);
+    next(createError(404, "Cannot Reach This site"));
   }
 });
 
-//update a vehicle
+//call controller to create a Vehicle
+router.post("/create/:hotelId", verifyAdmin, createVehicle);
 
-//delete a vehicle
+//call controller to update a Vehicle
+router.put("/update/:id", verifyAdmin, updateVehicle);
 
-//get a vehicle
+//call controller to delete a Vehicle
+router.delete("/delete/:id/:rentalId", verifyAdmin, deleteVehicle);
 
-//get all vehicles
+//call controller to get a Vehicle
+router.get("/get/:id", verifyAdmin, getVehicle);
+
+//call controller to get all Vehicles
+router.get("/get", verifyAdmin, getAllVehicle);
 
 export default router;
