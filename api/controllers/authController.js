@@ -44,7 +44,7 @@ export const login = async (req, res, next) => {
 
     //set token with jwt
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, level: user.level },
       process.env.JWT_KEY
     );
 
