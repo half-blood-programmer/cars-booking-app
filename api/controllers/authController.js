@@ -40,7 +40,7 @@ export const login = async (req, res, next) => {
       return next(createError(404, "Wrong Password or Username"));
 
     //hide id and pass
-    const { _id, password, ...otherProperties } = user._doc;
+    const { _id, password, level, ...otherProperties } = user._doc;
 
     //set token with jwt
     const token = jwt.sign(
@@ -53,7 +53,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json({ ...otherProperties });
+      .json({ details: { ...otherProperties }, level });
   } catch (err) {
     next(createError(404, "Unable to Login"));
   }
