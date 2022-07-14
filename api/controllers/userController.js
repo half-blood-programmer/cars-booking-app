@@ -1,15 +1,24 @@
 import User from "../models/User.js";
 import { createError } from "../utilities/error.js";
+import bcrypt from "bcryptjs";
 
 // no create a User, bcs have regist
 
 // update a User
 export const updateUser = async (req, res, next) => {
   try {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    let updateData = req.body;
+
+    if (req.body.password) {
+      updateData.password = hash;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body,
+        $set: updateData,
       },
       { new: true }
     );
