@@ -12,7 +12,7 @@ import { verifyAdmin, verifyUser } from "../utilities/verifyToken.js";
 const router = express.Router();
 
 //Vehicle index link
-router.get("/", (req, res, next) => {
+router.get("/check", (req, res, next) => {
   try {
     res.send("Hello, this is Vehicles endpoint.");
   } catch (err) {
@@ -21,18 +21,18 @@ router.get("/", (req, res, next) => {
 });
 
 //call controller to create a Vehicle
-router.post("/create/:hotelId", verifyAdmin, createVehicle);
+router.post("/create/:hotelId", verifyUser, createVehicle);
 
 //call controller to update a Vehicle
-router.put("/update/:id", verifyAdmin, updateVehicle);
+router.put("/update/:id", verifyUser, updateVehicle);
 
 //call controller to delete a Vehicle
-router.delete("/delete/:id/:rentalId", verifyAdmin, deleteVehicle);
+router.delete("/delete/:id/:rentalId", verifyUser, deleteVehicle);
 
 //call controller to get a Vehicle
-router.get("/get/:id", verifyAdmin, getVehicle);
+router.get("/get/:id", verifyUser, getVehicle);
 
 //call controller to get all Vehicles
-router.get("/get", verifyAdmin, getAllVehicle);
+router.get("/", verifyUser, getAllVehicle);
 
 export default router;

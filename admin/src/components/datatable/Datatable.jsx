@@ -9,11 +9,13 @@ import axios from "axios";
 const Datatable = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const [list, setList] = useState();
+  const [list, setList] = useState([]);
   const { data, loading, error } = useFetch(`/${path}`);
 
   useEffect(() => {
     setList(data);
+    console.log(list);
+    console.log(data);
   }, [data]);
 
   const handleDelete = async (id) => {
@@ -31,7 +33,7 @@ const Datatable = ({ columns }) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to="/users/check" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -49,6 +51,7 @@ const Datatable = ({ columns }) => {
     <div className="datatable">
       <div className="datatableTitle">
         {path}
+
         <Link to={`/${path}/new`} className="link">
           Add New
         </Link>

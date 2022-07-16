@@ -11,8 +11,7 @@ export const register = async (req, res, next) => {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
+      ...req.body,
       password: hash,
     });
 
@@ -56,5 +55,20 @@ export const login = async (req, res, next) => {
       .json({ details: { ...otherProperties }, level });
   } catch (err) {
     next(createError(404, "Unable to Login"));
+  }
+};
+
+// logout function
+export const logout = async (req, res, next) => {
+  try {
+    //set token with jwt
+
+    return res
+      .cookie("acces_token", "none", {
+        httpOnly: true,
+      })
+      .status(200);
+  } catch (err) {
+    next(createError(404, "Unable to Logout"));
   }
 };

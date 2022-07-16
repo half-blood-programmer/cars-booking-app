@@ -12,7 +12,7 @@ import { verifyAdmin, verifyUser } from "../utilities/verifyToken.js";
 const router = express.Router();
 
 //Rental index link
-router.get("/", (req, res, next) => {
+router.get("/check", (req, res, next) => {
   try {
     res.send("Hello, this is Rentals endpoint.");
   } catch (err) {
@@ -21,18 +21,18 @@ router.get("/", (req, res, next) => {
 });
 
 //call controller to create a Rental
-router.post("/create", verifyAdmin, createRental);
+router.post("/create", verifyUser, createRental);
 
 //call controller to update a Rental
-router.put("/update/:id", verifyAdmin, updateRental);
+router.put("/update/:id", verifyUser, updateRental);
 
 //call controller to delete a Rental
-router.delete("/delete/:id", verifyAdmin, deleteRental);
+router.delete("/delete/:id", verifyUser, deleteRental);
 
 //call controller to get a Rental
-router.get("/get/:id", verifyAdmin, getRental);
+router.get("/get/:id", verifyUser, getRental);
 
 //call controller to get all Rentals
-router.get("/get", verifyAdmin, getAllRental);
+router.get("/", verifyUser, getAllRental);
 
 export default router;

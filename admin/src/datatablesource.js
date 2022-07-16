@@ -7,7 +7,11 @@ export const userColumns = [
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"} alt="avatar" />
+          <img
+            className="cellImg"
+            src={params.row.img || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"}
+            alt="avatar"
+          />
           {params.row.username}
         </div>
       );
@@ -36,7 +40,7 @@ export const userColumns = [
   },
 ];
 
-export const hotelColumns = [
+export const rentalColumns = [
   { field: "_id", headerName: "ID", width: 250 },
   {
     field: "name",
@@ -60,7 +64,7 @@ export const hotelColumns = [
   },
 ];
 
-export const roomColumns = [
+export const vehicleColumns = [
   { field: "_id", headerName: "ID", width: 70 },
   {
     field: "title",

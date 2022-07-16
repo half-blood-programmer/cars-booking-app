@@ -1,4 +1,4 @@
-import "./newHotel.scss";
+import "./newRental.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -7,7 +7,7 @@ import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
-const NewHotel = () => {
+const NewRental = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -25,8 +25,8 @@ const NewHotel = () => {
     );
     setRooms(value);
   };
-  
-  console.log(files)
+
+  console.log(files);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -46,14 +46,16 @@ const NewHotel = () => {
         })
       );
 
-      const newhotel = {
+      const newRental = {
         ...info,
         rooms,
         photos: list,
       };
 
-      await axios.post("/hotels", newhotel);
-    } catch (err) {console.log(err)}
+      await axios.post("/hotels", newRental);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="new">
@@ -129,4 +131,4 @@ const NewHotel = () => {
   );
 };
 
-export default NewHotel;
+export default NewRental;

@@ -9,9 +9,10 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
-import NewHotel from "./pages/newHotel/NewHotel";
-import NewRoom from "./pages/newRoom/NewRoom";
+import { rentalColumns, vehicleColumns, userColumns } from "./datatablesource";
+import NewRental from "./pages/newRental/NewRental";
+import Newvehicle from "./pages/newVehicle/NewVehicle";
+import Logout from "./pages/login/Logout";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -32,6 +33,7 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="login" element={<Login />} />
+            <Route path="logout" element={<Logout />} />
             <Route
               index
               element={
@@ -66,17 +68,17 @@ function App() {
                 }
               />
             </Route>
-            <Route path="hotels">
+            <Route path="rentals">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <List columns={hotelColumns} />
+                    <List columns={rentalColumns} />
                   </ProtectedRoute>
                 }
               />
               <Route
-                path=":productId"
+                path=":rentalId"
                 element={
                   <ProtectedRoute>
                     <Single />
@@ -87,22 +89,22 @@ function App() {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <NewHotel />
+                    <NewRental />
                   </ProtectedRoute>
                 }
               />
             </Route>
-            <Route path="rooms">
+            <Route path="vehicles">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <List columns={roomColumns} />
+                    <List columns={vehicleColumns} />
                   </ProtectedRoute>
                 }
               />
               <Route
-                path=":productId"
+                path=":vehicleId"
                 element={
                   <ProtectedRoute>
                     <Single />
@@ -113,7 +115,7 @@ function App() {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <NewRoom />
+                    <Newvehicle />
                   </ProtectedRoute>
                 }
               />
