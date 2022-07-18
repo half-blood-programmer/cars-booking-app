@@ -69,18 +69,18 @@ export const productInputs = [
   },
 ];
 
-export const hotelInputs = [
+export const rentalInputs = [
   {
     id: "name",
     label: "Name",
     type: "text",
-    placeholder: "My Hotel",
+    placeholder: "My rental",
   },
   {
     id: "type",
     label: "Type",
     type: "text",
-    placeholder: "hotel",
+    placeholder: "rental",
   },
   {
     id: "city",
@@ -104,7 +104,7 @@ export const hotelInputs = [
     id: "title",
     label: "Title",
     type: "text",
-    placeholder: "The best Hotel",
+    placeholder: "The best rental",
   },
   {
     id: "desc",
@@ -114,24 +114,24 @@ export const hotelInputs = [
   },
   {
     id: "cheapestPrice",
-    label: "Price",
+    label: "Chepest Price",
     type: "text",
     placeholder: "100",
   },
 ];
 
-export const roomInputs = [
+export const vehicleInputs = [
   {
     id: "title",
     label: "Title",
     type: "text",
-    placeholder: "2 bed room",
+    placeholder: "2 bed vehicle",
   },
   {
     id: "desc",
     label: "Description",
     type: "text",
-    placeholder: "King size bed, 1 bathroom",
+    placeholder: "King size bed, 1 bathvehicle",
   },
   {
     id: "price",

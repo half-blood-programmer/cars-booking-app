@@ -12,7 +12,6 @@ import { AuthContext } from "./context/AuthContext";
 import { rentalColumns, vehicleColumns, userColumns } from "./datatablesource";
 import NewRental from "./pages/newRental/NewRental";
 import Newvehicle from "./pages/newVehicle/NewVehicle";
-import Logout from "./pages/login/Logout";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -33,7 +32,6 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="login" element={<Login />} />
-            <Route path="logout" element={<Logout />} />
             <Route
               index
               element={

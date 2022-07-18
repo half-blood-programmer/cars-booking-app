@@ -18,7 +18,10 @@ export const verifyToken = (req, res, next) => {
 
 export const verifyUser = (req, res, next) => {
   verifyToken(req, res, next, () => {
-    if (req.getUserData.id === req.params.id || req.getUserData.level === 17) {
+    if (
+      req.getUserData.id === req.params.id ||
+      req.getUserData.level === "17"
+    ) {
       next();
     } else {
       return next(createError(401, "You're not authentichated"));
@@ -28,7 +31,7 @@ export const verifyUser = (req, res, next) => {
 
 export const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, next, () => {
-    if (req.getUserData.level === 17) {
+    if (req.getUserData.level === "17") {
       next();
     } else {
       return next(

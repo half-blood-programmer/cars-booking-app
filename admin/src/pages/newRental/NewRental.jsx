@@ -3,16 +3,16 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
-import { hotelInputs } from "../../formSource";
+import { rentalInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
 const NewRental = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
-  const [rooms, setRooms] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
 
-  const { data, loading, error } = useFetch("/rooms");
+  const { data, loading, error } = useFetch("/vehicles");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -23,7 +23,7 @@ const NewRental = () => {
       e.target.selectedOptions,
       (option) => option.value
     );
-    setRooms(value);
+    setVehicles(value);
   };
 
   console.log(files);
@@ -37,7 +37,7 @@ const NewRental = () => {
           data.append("file", file);
           data.append("upload_preset", "upload");
           const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/lamadev/image/upload",
+            `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
             data
           );
 
@@ -48,11 +48,19 @@ const NewRental = () => {
 
       const newRental = {
         ...info,
-        rooms,
+        vehicles,
         photos: list,
       };
 
-      await axios.post("/hotels", newRental);
+      try {
+        await axios.post("/rentals/create", {
+          ...info,
+          vehicles,
+          photos: list,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -91,7 +99,7 @@ const NewRental = () => {
                 />
               </div>
 
-              {hotelInputs.map((input) => (
+              {rentalInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input
@@ -110,14 +118,14 @@ const NewRental = () => {
                 </select>
               </div>
               <div className="selectRooms">
-                <label>Rooms</label>
-                <select id="rooms" multiple onChange={handleSelect}>
+                <label>select vahicle type</label>
+                <select id="vehicles" multiple onChange={handleSelect}>
                   {loading
                     ? "loading"
                     : data &&
-                      data.map((room) => (
-                        <option key={room._id} value={room._id}>
-                          {room.title}
+                      data.map((vehicle) => (
+                        <option key={vehicle._id} value={vehicle._id}>
+                          {vehicle.title}
                         </option>
                       ))}
                 </select>

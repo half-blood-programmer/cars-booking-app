@@ -23,7 +23,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post("/auth/login", credentials);
-      if (res.data.level === 17) {
+      if (res.data.level === "17") {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
 
         navigate("/");
@@ -34,7 +34,10 @@ const Login = () => {
         });
       }
     } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      dispatch({
+        type: "LOGIN_FAILURE",
+        payload: { message: err.response.data },
+      });
     }
   };
 

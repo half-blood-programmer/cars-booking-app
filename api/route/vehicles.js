@@ -27,7 +27,7 @@ router.post("/create/:hotelId", verifyUser, createVehicle);
 router.put("/update/:id", verifyUser, updateVehicle);
 
 //call controller to delete a Vehicle
-router.delete("/delete/:id/:rentalId", verifyUser, deleteVehicle);
+router.delete("/delete/:id", verifyUser, deleteVehicle);
 
 //call controller to get a Vehicle
 router.get("/get/:id", verifyUser, getVehicle);

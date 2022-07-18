@@ -3,16 +3,16 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
-import { roomInputs } from "../../formSource";
+import { vehicleInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
 const NewVehicle = () => {
   const [info, setInfo] = useState({});
-  const [hotelId, setHotelId] = useState(undefined);
-  const [rooms, setRooms] = useState([]);
+  const [rentalId, setRentalId] = useState(undefined);
+  const [vehicles, setVehicles] = useState([]);
 
-  const { data, loading, error } = useFetch("/hotels");
+  const { data, loading, error } = useFetch("/rentals");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -20,9 +20,14 @@ const NewVehicle = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
+    const vehicleNumbers = vehicles
+      .split(",")
+      .map((vehicle) => ({ number: vehicle }));
     try {
-      await axios.post(`/rooms/${hotelId}`, { ...info, roomNumbers });
+      await axios.post(`/vehicles/create/${rentalId}`, {
+        ...info,
+        vehicleNumbers,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -35,12 +40,12 @@ const NewVehicle = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add New Room</h1>
+          <h1>Add New vehicle</h1>
         </div>
         <div className="bottom">
           <div className="right">
             <form>
-              {roomInputs.map((input) => (
+              {vehicleInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input
@@ -52,24 +57,24 @@ const NewVehicle = () => {
                 </div>
               ))}
               <div className="formInput">
-                <label>Rooms</label>
+                <label>vehicles</label>
                 <textarea
-                  onChange={(e) => setRooms(e.target.value)}
-                  placeholder="give comma between room numbers."
+                  onChange={(e) => setVehicles(e.target.value)}
+                  placeholder="give comma between vehicle numbers."
                 />
               </div>
               <div className="formInput">
-                <label>Choose a hotel</label>
+                <label>Choose a rental</label>
                 <select
-                  id="hotelId"
-                  onChange={(e) => setHotelId(e.target.value)}
+                  id="rentalId"
+                  onChange={(e) => setRentalId(e.target.value)}
                 >
                   {loading
                     ? "loading"
                     : data &&
-                      data.map((hotel) => (
-                        <option key={hotel._id} value={hotel._id}>
-                          {hotel.name}
+                      data.map((rental) => (
+                        <option key={rental._id} value={rental._id}>
+                          {rental.name}
                         </option>
                       ))}
                 </select>

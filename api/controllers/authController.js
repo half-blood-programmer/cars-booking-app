@@ -57,18 +57,3 @@ export const login = async (req, res, next) => {
     next(createError(404, "Unable to Login"));
   }
 };
-
-// logout function
-export const logout = async (req, res, next) => {
-  try {
-    //set token with jwt
-
-    return res
-      .cookie("acces_token", "none", {
-        httpOnly: true,
-      })
-      .status(200);
-  } catch (err) {
-    next(createError(404, "Unable to Logout"));
-  }
-};

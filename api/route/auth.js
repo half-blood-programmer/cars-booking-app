@@ -1,5 +1,5 @@
 import express from "express";
-import { login, logout, register } from "../controllers/authController.js";
+import { login, register } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.post("/register", register);
 
 // call controller to login
 router.post("/login", login);
-router.post("/logout", logout);
+// router.post("/logout", logout);
 
 //call controller to update a User
 // router.put("/update/:id", updateUser);
